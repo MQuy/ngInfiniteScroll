@@ -15,6 +15,7 @@ angular.module(MODULE_NAME, [])
       infiniteScrollDisabled: '=',
       infiniteScrollUseDocumentBottom: '=',
       infiniteScrollListenForEvent: '@',
+      infiniteScrollVisible: '=',
     },
 
     link(scope, elem, attrs) {
@@ -85,7 +86,8 @@ angular.module(MODULE_NAME, [])
         if (shouldScroll) {
           checkWhenEnabled = true;
 
-          if (scrollEnabled) {
+          if (scrollEnabled &&
+               (!scope.infiniteScrollVisible || elem[0].offsetParent)) {
             if (scope.$$phase || $rootScope.$$phase) {
               scope.infiniteScroll();
             } else {
